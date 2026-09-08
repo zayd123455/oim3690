@@ -3,21 +3,144 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>OIM 3690 | Zayd Touhami Chahdier</title>
+  <title>Zayd Touhami Chahdier</title>
+  <style>
+    :root {
+      --ink: #1a1a1a;
+      --muted: #6b6b6b;
+      --rule: #e4e2dd;
+      --bg: #fbfaf8;
+      --accent: #8a3324;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --ink: #eceae6;
+        --muted: #9a9691;
+        --rule: #2e2c29;
+        --bg: #121110;
+        --accent: #d8785f;
+      }
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+      font-size: 19px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    main {
+      max-width: 34rem;
+      margin: 0 auto;
+      padding: 12vh 1.5rem 8rem;
+    }
+
+    .portrait {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      display: block;
+      margin-bottom: 2.5rem;
+      filter: grayscale(1);
+    }
+
+    h1 {
+      font-size: 2.1rem;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      font-weight: 600;
+      margin: 0 0 0.4rem;
+    }
+
+    .role {
+      color: var(--muted);
+      font-size: 1rem;
+      margin: 0 0 3rem;
+    }
+
+    h2 {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 600;
+      margin: 3rem 0 1rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+    }
+
+    p { margin: 0 0 1.4rem; }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      padding: 0.7rem 0;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    li:last-child { border-bottom: none; }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+      padding-bottom: 1px;
+    }
+
+    a:hover { color: var(--ink); }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+  </style>
 </head>
 <body>
-  <h1>OIM 3690: Web Development with AI</h1>
-  <p>Course repository for Fall 2026. Babson College.</p>
 
-  <h2>What is in here</h2>
-  <ul>
-    <li>Weekly notes in the logs folder</li>
-    <li>Exercises and mini projects as the semester goes on</li>
-  </ul>
+  <main>
 
-  <h2>Links</h2>
-  <ul>
-    <li><a href="https://zayd123455.github.io">My personal site</a></li>
-  </ul>
+    <img class="portrait" src="https://github.com/zayd123455.png" alt="Zayd Touhami Chahdier">
+
+    <h1>Zayd Touhami Chahdier</h1>
+    <p class="role">Babson College, class of 2027. Boston.</p>
+
+    <p>
+      I build small software products and run an AI automation agency, which
+      means most of my week is spent either shipping something or working out
+      why it broke. Before this year I was on exchange at the London School of
+      Economics.
+    </p>
+
+    <h2>Interests</h2>
+    <ul>
+      <li>AI agents and workflow automation</li>
+      <li>Football, watching it and building things around it</li>
+      <li>Markets and algorithmic trading</li>
+    </ul>
+
+    <h2>Elsewhere</h2>
+    <ul>
+      <li><a href="https://github.com/zayd123455">GitHub</a></li>
+    </ul>
+
+    <footer>
+      Built for OIM 3690, Fall 2026.
+    </footer>
+
+  </main>
+
 </body>
 </html>
