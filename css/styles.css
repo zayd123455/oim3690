@@ -1,0 +1,135 @@
+/* styles for about-me.html
+   moved out of the <style> block so other pages in this repo can share it */
+
+:root {
+  --ink: #1a1a1a;
+  --muted: #6b6b6b;
+  --rule: #e4e2dd;
+  --bg: #fbfaf8;
+  --accent: #8a3324;
+  --babson: #006644; /* Babson green, from the brand page */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #eceae6;
+    --muted: #9a9691;
+    --rule: #2e2c29;
+    --bg: #121110;
+    --accent: #d8785f;
+    --babson: #4fb08a;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0 auto;
+  max-width: 38rem;
+  padding: 3rem 1.5rem 6rem;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  font-size: 19px;
+  line-height: 1.65;
+}
+
+/* the h1 rule the exercise asked for */
+h1 {
+  font-size: 2.2rem;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+  margin: 0 0 0.3rem;
+}
+
+.lede {
+  color: var(--muted);
+  margin: 0 0 2rem;
+}
+
+.babson { color: var(--babson); font-weight: 600; }
+
+h2 {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 600;
+  margin: 3rem 0 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+/* nav a only matches links inside the nav, the space means "inside" */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.2rem;
+}
+
+nav a { text-decoration: none; }
+
+p { margin: 0 0 1.4rem; }
+
+/* a class I invented. the paragraph that says what I actually do */
+.highlight {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  font-style: italic;
+}
+
+main ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+main li {
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+main li:last-child { border-bottom: none; }
+
+figure {
+  margin: 1.5rem 0;
+}
+
+figure img {
+  display: block;
+  border-radius: 8px;
+}
+
+figcaption {
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 1px;
+}
+
+/* the a:hover rule */
+a:hover { color: var(--ink); }
+
+/* these two conflict on purpose. same selector, same property, so the later
+   one wins. open DevTools on a link and the first one is crossed out */
+a:hover { color: var(--babson); }
+
+footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+
+address { font-style: normal; }
