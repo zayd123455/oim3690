@@ -133,3 +133,37 @@ footer {
 }
 
 address { font-style: normal; }
+
+/* index.html shares this file too, so both pages look like one site.
+   these two classes only exist on the home page */
+.portrait {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  display: block;
+  margin-bottom: 2rem;
+  filter: grayscale(1);
+}
+
+.role {
+  color: var(--muted);
+  margin: 0 0 2rem;
+}
+
+
+/* phone widths. the rules above still apply, these override them
+   only when the screen is 600px wide or less */
+@media (max-width: 600px) {
+  body {
+    padding: 1.5rem 1rem 4rem;
+    font-size: 17px;
+  }
+
+  h1 { font-size: 1.8rem; }
+
+  /* the menu turns into a column */
+  nav ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
