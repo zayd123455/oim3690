@@ -1,102 +1,268 @@
-/* styles for contact.html */
+/* contact.html
+   Colours, fonts and the star come from my personal site so both pages
+   look like the same person. Every colour below is one of these tokens. */
+
+:root {
+  --cobalt: #1B3FAE;     /* main colour: the left panel and the button */
+  --saffron: #E0A32E;    /* accent: the star, numbers, focus underline */
+  --plaster: #F4F3EE;    /* page background */
+  --ink: #14161C;        /* text */
+  --rule: #D8D5CC;       /* lines under the fields */
+  --muted: #6E6A61;      /* hints and small text */
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #fbfaf8;
-  color: #1a1a1a;
+  background: var(--plaster);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.5;
 }
 
-main {
-  max-width: 32rem;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+/* two columns on a laptop, stacked on a phone (see the media query at the end) */
+.contact {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  min-height: 100vh;
 }
 
-label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 4px;
+/* ---------- left panel ---------- */
+
+.intro {
+  position: relative;
+  overflow: hidden;
+  background: var(--cobalt);
+  color: var(--plaster);
+  padding: 64px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
-input, textarea {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px; /* 16px stops iPhone Safari zooming in when you tap the field */
-  font-family: inherit;
+/* the khatim star, drawn large and cropped off the top corner */
+.star {
+  position: absolute;
+  top: -90px;
+  right: -90px;
+  width: 360px;
+  height: 360px;
+  fill: none;
+  stroke: var(--saffron);
+  stroke-width: 2;
+  opacity: 0.9;
 }
 
-/* focus state: the field you are typing in gets a green border and a soft ring */
-input:focus, textarea:focus {
-  outline: none;
-  border-color: #006644;
-  box-shadow: 0 0 0 3px rgba(0, 102, 68, 0.25);
-}
-
-select {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  font-family: inherit;
-  background: #fff;
-}
-
-select:focus {
-  outline: none;
-  border-color: #006644;
-  box-shadow: 0 0 0 3px rgba(0, 102, 68, 0.25);
-}
-
-/* groups name, email, topic and date under one heading for screen readers */
-fieldset {
-  border: 1px solid #e4e2dd;
-  border-radius: 4px;
-  padding: 16px;
+.eyebrow {
   margin: 0 0 16px;
+  font-size: 15px;
+  opacity: 0.8;
 }
 
-legend {
-  font-weight: 600;
-  padding: 0 4px;
+h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 800;
+  font-stretch: 75%;          /* Archivo can be narrowed; this makes the heading tall and tight */
+  font-size: clamp(56px, 7vw, 104px);   /* grows with the window, never below 56px or above 104px */
+  line-height: 0.92;
+  letter-spacing: -0.01em;
 }
 
-/* small grey help text under a field, linked with aria-describedby */
-.hint {
-  margin: -12px 0 16px;
+.arabic {
+  margin: 12px 0 32px;
+  font-family: "IBM Plex Sans Arabic", var(--body);
+  font-size: 28px;
+  color: var(--saffron);
+  text-align: left;   /* Arabic reads right to left, but the line sits under the heading */
+}
+
+.lede {
+  max-width: 34ch;
+  margin: 0 0 40px;
+  font-size: 18px;
+}
+
+.facts { margin: 0; }
+.facts div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-top: 1px solid rgba(244, 243, 238, 0.25);
+}
+.facts dt { opacity: 0.7; }
+.facts dd { margin: 0; text-align: right; }
+.facts a { color: var(--plaster); text-underline-offset: 3px; }
+.facts a:hover { color: var(--saffron); }
+
+/* ---------- right panel: the form ---------- */
+
+.panel {
+  padding: 64px 56px;
+  display: flex;
+  align-items: center;
+}
+
+form {
+  width: 100%;
+  max-width: 560px;
+}
+
+.field {
+  margin: 0 0 32px;
+  padding: 0;
+  border: 0;
+}
+
+label, legend {
+  display: block;
+  padding: 0;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* the small 01, 02, 03 in front of each label */
+.num {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--saffron);
+  margin-right: 8px;
+}
+
+.optional {
+  font-weight: 400;
   font-size: 14px;
-  color: #6b6b6b;
+  color: var(--muted);
+  margin-left: 6px;
 }
 
-/* red border only after someone has typed something wrong */
-input:user-invalid, textarea:user-invalid {
-  border-color: #b3261e;
+/* text fields are just a line, like writing on paper */
+input[type="text"],
+input[type="email"],
+input[type="date"],
+textarea {
+  width: 100%;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 2px solid var(--rule);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 20px;            /* 16px or more stops iPhone Safari zooming in */
+  transition: border-color 0.2s;
 }
+
+textarea { resize: vertical; min-height: 120px; }
+
+::placeholder { color: #A9A498; }
+
+/* focus: the line turns saffron instead of a box glowing */
+input:focus,
+textarea:focus {
+  outline: none;
+  border-bottom-color: var(--saffron);
+}
+
+/* red line only after someone has typed something wrong */
+input:user-invalid,
+textarea:user-invalid {
+  border-bottom-color: #B3261E;
+}
+
+.hint {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ---------- topic choices ----------
+   Real radio buttons, hidden visually but still there for keyboards and
+   screen readers. The label next to each one is what you see and click. */
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.choices input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.choices label {
+  margin: 0;
+  padding: 10px 16px;
+  border: 2px solid var(--rule);
+  border-radius: 4px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+}
+
+.choices label:hover { border-color: var(--ink); }
+
+/* the selected one fills with cobalt */
+.choices input:checked + label {
+  background: var(--cobalt);
+  border-color: var(--cobalt);
+  color: var(--plaster);
+}
+
+/* keyboard users see which choice they are on */
+.choices input:focus-visible + label {
+  outline: 3px solid var(--saffron);
+  outline-offset: 2px;
+}
+
+/* ---------- send button ---------- */
 
 button {
-  padding: 10px 20px;
-  font-size: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 28px;
   border: 0;
   border-radius: 4px;
-  background: #006644;
-  color: #fff;
+  background: var(--cobalt);
+  color: var(--plaster);
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 18px;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
-/* hover on submit */
-button:hover {
-  background: #004d33;
-}
+/* on hover the button darkens and the arrow slides right */
+button:hover { background: var(--ink); }
+.arrow { transition: transform 0.2s; }
+button:hover .arrow { transform: translateX(4px); }
 
-/* keyboard users see where they are */
 button:focus-visible {
-  outline: 3px solid #1a1a1a;
-  outline-offset: 2px;
+  outline: 3px solid var(--saffron);
+  outline-offset: 3px;
+}
+
+/* ---------- phones ---------- */
+
+@media (max-width: 800px) {
+  .contact { grid-template-columns: 1fr; }
+  .intro, .panel { padding: 40px 20px; }
+  .intro { padding-top: 120px; }   /* room for the star above the heading */
+  .star { width: 180px; height: 180px; top: -50px; right: -50px; }
+  .lede { margin-bottom: 24px; }
+}
+
+/* people who turn off animation in their settings get none */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
 }

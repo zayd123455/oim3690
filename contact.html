@@ -4,43 +4,73 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact | Zayd Touhami Chahdi</title>
+  <meta name="description" content="Write to Zayd Touhami Chahdi about a project, a class, or anything else.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Sans+Arabic:wght@400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
 
-  <main>
-    <h1>Contact me</h1>
+  <main class="contact">
 
-    <p>Fields marked <span aria-hidden="true">*</span> are required.</p>
+    <!-- left: who you are writing to -->
+    <section class="intro" aria-labelledby="title">
+      <svg class="star" viewBox="-104 -104 208 208" aria-hidden="true">
+        <path d="M 0.00,-100.00 L 17.60,-42.50 L 70.71,-70.71 L 42.50,-17.60 L 100.00,0.00 L 42.50,17.60 L 70.71,70.71 L 17.60,42.50 L 0.00,100.00 L -17.60,42.50 L -70.71,70.71 L -42.50,17.60 L -100.00,0.00 L -42.50,-17.60 L -70.71,-70.71 L -17.60,-42.50 Z"/>
+      </svg>
+      <p class="eyebrow">Zayd Touhami Chahdi</p>
+      <h1 id="title">Write to me.</h1>
+      <p class="arabic" lang="ar" dir="rtl">راسلني</p>
+      <p class="lede">A project, a question about class, a football argument. I read everything and usually reply within two days.</p>
+      <dl class="facts">
+        <div><dt>Based in</dt><dd>Boston, from Salé</dd></div>
+        <div><dt>Studying</dt><dd>Babson College, class of 2027</dd></div>
+        <div><dt>Elsewhere</dt><dd><a href="https://github.com/zayd123455">github.com/zayd123455</a></dd></div>
+      </dl>
+    </section>
 
-    <form action="https://oim.zhili.dev/echo/view" method="POST">
-      <fieldset>
-        <legend>Your details</legend>
+    <!-- right: the form -->
+    <section class="panel" aria-label="Contact form">
+      <form action="https://oim.zhili.dev/echo/view" method="POST">
 
-        <label for="name">Name <span aria-hidden="true">*</span></label>
-        <input type="text" id="name" name="name" minlength="2" autocomplete="name" required>
+        <div class="field">
+          <label for="name"><span class="num">01</span> Your name</label>
+          <input type="text" id="name" name="name" minlength="2" autocomplete="name" placeholder="First and last" required>
+        </div>
 
-        <label for="email">Email <span aria-hidden="true">*</span></label>
-        <input type="email" id="email" name="email" autocomplete="email" required>
+        <div class="field">
+          <label for="email"><span class="num">02</span> Your email</label>
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" required>
+        </div>
 
-        <label for="topic">What is it about?</label>
-        <select id="topic" name="topic">
-          <option value="general">General question</option>
-          <option value="project">A project</option>
-          <option value="class">Class</option>
-        </select>
+        <fieldset class="field">
+          <legend><span class="num">03</span> What is it about?</legend>
+          <div class="choices">
+            <input type="radio" id="topic-project" name="topic" value="project" checked>
+            <label for="topic-project">A project</label>
+            <input type="radio" id="topic-class" name="topic" value="class">
+            <label for="topic-class">Class</label>
+            <input type="radio" id="topic-other" name="topic" value="other">
+            <label for="topic-other">Something else</label>
+          </div>
+        </fieldset>
 
-        <label for="date">Best day to reply by</label>
-        <input type="date" id="date" name="date" aria-describedby="date-hint">
-        <p class="hint" id="date-hint">Optional.</p>
-      </fieldset>
+        <div class="field">
+          <label for="message"><span class="num">04</span> Your message</label>
+          <textarea id="message" name="message" rows="5" minlength="10" placeholder="A few lines is plenty" required aria-describedby="message-hint"></textarea>
+          <p class="hint" id="message-hint">At least 10 characters.</p>
+        </div>
 
-      <label for="message">Message <span aria-hidden="true">*</span></label>
-      <textarea id="message" name="message" rows="5" minlength="10" required aria-describedby="message-hint"></textarea>
-      <p class="hint" id="message-hint">At least 10 characters.</p>
+        <div class="field">
+          <label for="date"><span class="num">05</span> Reply by <span class="optional">optional</span></label>
+          <input type="date" id="date" name="date">
+        </div>
 
-      <button type="submit">Send</button>
-    </form>
+        <button type="submit">Send message <span class="arrow" aria-hidden="true">&rarr;</span></button>
+      </form>
+    </section>
+
   </main>
 
 </body>
