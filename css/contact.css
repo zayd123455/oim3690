@@ -37,6 +37,49 @@ input:focus, textarea:focus {
   box-shadow: 0 0 0 3px rgba(0, 102, 68, 0.25);
 }
 
+select {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  font-family: inherit;
+  background: #fff;
+}
+
+select:focus {
+  outline: none;
+  border-color: #006644;
+  box-shadow: 0 0 0 3px rgba(0, 102, 68, 0.25);
+}
+
+/* groups name, email, topic and date under one heading for screen readers */
+fieldset {
+  border: 1px solid #e4e2dd;
+  border-radius: 4px;
+  padding: 16px;
+  margin: 0 0 16px;
+}
+
+legend {
+  font-weight: 600;
+  padding: 0 4px;
+}
+
+/* small grey help text under a field, linked with aria-describedby */
+.hint {
+  margin: -12px 0 16px;
+  font-size: 14px;
+  color: #6b6b6b;
+}
+
+/* red border only after someone has typed something wrong */
+input:user-invalid, textarea:user-invalid {
+  border-color: #b3261e;
+}
+
 button {
   padding: 10px 20px;
   font-size: 16px;
@@ -50,4 +93,10 @@ button {
 /* hover on submit */
 button:hover {
   background: #004d33;
+}
+
+/* keyboard users see where they are */
+button:focus-visible {
+  outline: 3px solid #1a1a1a;
+  outline-offset: 2px;
 }

@@ -11,15 +11,33 @@
   <main>
     <h1>Contact me</h1>
 
+    <p>Fields marked <span aria-hidden="true">*</span> are required.</p>
+
     <form action="https://oim.zhili.dev/echo/view" method="POST">
-      <label for="name">Name</label>
-      <input type="text" id="name" name="name" minlength="2" required>
+      <fieldset>
+        <legend>Your details</legend>
 
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" required>
+        <label for="name">Name <span aria-hidden="true">*</span></label>
+        <input type="text" id="name" name="name" minlength="2" autocomplete="name" required>
 
-      <label for="message">Message</label>
-      <textarea id="message" name="message" rows="5" minlength="10" required></textarea>
+        <label for="email">Email <span aria-hidden="true">*</span></label>
+        <input type="email" id="email" name="email" autocomplete="email" required>
+
+        <label for="topic">What is it about?</label>
+        <select id="topic" name="topic">
+          <option value="general">General question</option>
+          <option value="project">A project</option>
+          <option value="class">Class</option>
+        </select>
+
+        <label for="date">Best day to reply by</label>
+        <input type="date" id="date" name="date" aria-describedby="date-hint">
+        <p class="hint" id="date-hint">Optional.</p>
+      </fieldset>
+
+      <label for="message">Message <span aria-hidden="true">*</span></label>
+      <textarea id="message" name="message" rows="5" minlength="10" required aria-describedby="message-hint"></textarea>
+      <p class="hint" id="message-hint">At least 10 characters.</p>
 
       <button type="submit">Send</button>
     </form>
