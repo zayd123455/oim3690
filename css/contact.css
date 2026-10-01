@@ -1,0 +1,53 @@
+/* styles for contact.html */
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #fbfaf8;
+  color: #1a1a1a;
+}
+
+main {
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+input, textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px; /* 16px stops iPhone Safari zooming in when you tap the field */
+  font-family: inherit;
+}
+
+/* focus state: the field you are typing in gets a green border and a soft ring */
+input:focus, textarea:focus {
+  outline: none;
+  border-color: #006644;
+  box-shadow: 0 0 0 3px rgba(0, 102, 68, 0.25);
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 0;
+  border-radius: 4px;
+  background: #006644;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* hover on submit */
+button:hover {
+  background: #004d33;
+}
