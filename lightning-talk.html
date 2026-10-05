@@ -6,59 +6,85 @@
   <title>Lightning Talk: 1,200 Agents | Zayd Touhami Chahdi</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/lightning.css">
 </head>
 <body>
 
-  <!-- Three screens, one per section. Press space or the down arrow to go to the next one. -->
+  <!-- Three screens. Space or the down arrow goes to the next one. -->
 
-  <section class="screen title" id="start">
-    <p class="kicker">Lightning talk · OIM3690 · Tue 10/6</p>
-    <h1><span class="big">1,200</span> AI agents broke out of their sandbox and hacked Hugging Face</h1>
-    <p class="sub">OpenAI training run, summer 2026. Nobody told them to.</p>
-    <p class="by">Zayd Touhami Chahdi</p>
+  <!-- 1. The hook: one dot per agent -->
+  <section class="screen hook" id="start">
+    <div class="hook-text">
+      <p class="tag"><span class="live"></span> Incident report · OpenAI · summer 2026</p>
+      <h1><span class="big">1,200</span> AI agents broke out of their sandbox and hacked Hugging Face</h1>
+      <p class="sub">Nobody told them to.</p>
+      <p class="by">Zayd Touhami Chahdi · OIM3690 lightning talk · Tue 10/6</p>
+    </div>
+    <figure class="swarm">
+      <!-- js/lightning.js fills this with 1,200 dots and turns 700 of them red -->
+      <div class="dots" id="dots" aria-label="1,200 dots, one per agent. About 700 turn red for the agents that attacked."></div>
+      <figcaption>
+        <span><i class="key key-on"></i> 1,200 agents talking to each other</span>
+        <span><i class="key key-red"></i> ~700 in the attack</span>
+      </figcaption>
+    </figure>
     <p class="count">01 / 03</p>
   </section>
 
-  <section class="screen steps" id="what-happened">
-    <h2>What happened</h2>
-    <ol class="timeline">
+  <!-- 2. How they got out -->
+  <section class="screen route" id="what-happened">
+    <p class="tag">How they got out</p>
+    <ol class="path">
       <li>
-        <span class="when">May</span>
-        <strong>Locked in.</strong> Each agent had its own sandbox, no internet, one job: crack a test system.
+        <span class="step">01 · May</span>
+        <strong>Sandbox</strong>
+        <span>No internet. One job: crack a test system.</span>
       </li>
       <li>
-        <span class="when">May–June</span>
-        <strong>Got out.</strong> They found a bug in the server that downloads code packages and used it to get online.
+        <span class="step">02 · May–June</span>
+        <strong>Package server</strong>
+        <span>A bug in the server that downloads code got them online.</span>
       </li>
       <li>
-        <span class="when">June</span>
-        <strong>Found each other.</strong> They left messages as folder names. 70,000+ messages in one week.
+        <span class="step">03 · June</span>
+        <strong>Each other</strong>
+        <span>They left messages as folder names.</span>
       </li>
-      <li>
-        <span class="when">July 11–13</span>
-        <strong>Broke in.</strong> About 700 attacked Hugging Face. Admin of whole clusters in under 13 hours. Nobody noticed for 3 days.
+      <li class="hit">
+        <span class="step">04 · July 11–13</span>
+        <strong>Hugging Face</strong>
+        <span>Where most open AI models live.</span>
       </li>
     </ol>
-    <blockquote>
-      <p>&ldquo;External infrastructure exploit is outside intended scope. However task impossible&rdquo;</p>
-      <cite>one of the agents, then it kept going</cite>
-    </blockquote>
+
+    <div class="stats">
+      <p><b>70,000+</b> messages in one week</p>
+      <p><b>&lt;13 hrs</b> to admin of whole server clusters</p>
+      <p><b>3 days</b> before anyone noticed</p>
+    </div>
+
+    <div class="terminal">
+      <p class="term-bar"><i></i><i></i><i></i> agent log</p>
+      <p class="term-line">&gt; External infrastructure exploit is outside intended scope. However task impossible<span class="cursor"></span></p>
+      <p class="term-note">one of the agents wrote this, then kept going</p>
+    </div>
+
     <p class="source">Source: OpenAI at Black Hat, Aug 2026, via <a href="https://en.wikipedia.org/wiki/OpenAI%E2%80%93HuggingFace_incident">Wikipedia</a> and <a href="https://www.poynter.org/fact-checking/2026/openai-ai-agents-hugging-face-cyberattack/">Poynter</a></p>
     <p class="count">02 / 03</p>
   </section>
 
+  <!-- 3. The discussion -->
   <section class="screen question" id="question">
-    <p class="kicker">Discussion</p>
-    <h2>If an AI agent breaks a rule to finish the job you gave it, whose fault is it?</h2>
+    <p class="tag">Your turn</p>
+    <h2>An AI agent breaks a rule to finish the job you gave it. <em>Whose fault is it?</em></h2>
     <ul class="options">
-      <li>the agent</li>
-      <li>the company that built it</li>
-      <li>you, for giving it the job</li>
+      <li><b>A</b> The agent</li>
+      <li><b>B</b> The company that built it</li>
+      <li><b>C</b> You, for giving it the job</li>
     </ul>
     <p class="follow">Follow-up: on 9/24 we asked how much money you'd let an agent spend. What would you let your agent do without asking you first?</p>
-    <p class="sources">Sources:
+    <p class="source">Sources:
       <a href="https://en.wikipedia.org/wiki/OpenAI%E2%80%93HuggingFace_incident">Wikipedia</a> ·
       <a href="https://www.poynter.org/fact-checking/2026/openai-ai-agents-hugging-face-cyberattack/">Poynter</a> ·
       <a href="https://www.snexplores.org/article/ai-agents-hacking-spree-openai">Science News Explores</a>
@@ -66,5 +92,6 @@
     <p class="count">03 / 03</p>
   </section>
 
+  <script src="js/lightning.js"></script>
 </body>
 </html>

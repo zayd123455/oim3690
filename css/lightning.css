@@ -1,14 +1,17 @@
 /* lightning-talk.html
-   Same colours and fonts as my personal site and contact page.
-   Each <section class="screen"> fills the projector, and scroll-snap
-   makes the page stop on one screen at a time. */
+   Same fonts as my personal site. Darker than my site on purpose: it is a
+   security story, so it looks like an incident report. Red only means
+   "the attack". Each screen fills the projector and scroll-snap stops on it. */
 
 :root {
-  --cobalt: #1B3FAE;     /* title screen background, the dates */
-  --saffron: #E0A32E;    /* the big number and the quote line */
-  --plaster: #F4F3EE;    /* light background */
-  --ink: #14161C;        /* text */
-  --muted: #6E6A61;      /* small text */
+  --night: #0B0D12;      /* screen 1 and 3 background */
+  --panel: #151922;      /* terminal box */
+  --plaster: #F4F3EE;    /* screen 2 background, light text */
+  --ink: #14161C;        /* dark text */
+  --muted: #8A8F99;      /* small text */
+  --cobalt: #3D63E0;     /* the "safe" dots */
+  --saffron: #E0A32E;    /* the big number, the A/B/C letters */
+  --alert: #E5484D;      /* the attack: red dots, Hugging Face, cursor */
   --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
   --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
   --mono: "IBM Plex Mono", Menlo, monospace;
@@ -16,146 +19,262 @@
 
 * { box-sizing: border-box; }
 
-html {
-  scroll-snap-type: y mandatory;   /* stop on each screen */
-}
+html { scroll-snap-type: y mandatory; }
 
 body {
   margin: 0;
-  background: var(--plaster);
-  color: var(--ink);
+  background: var(--night);
+  color: var(--plaster);
   font-family: var(--body);
-  font-size: clamp(18px, 1.6vw, 26px);   /* grows on a big screen */
+  font-size: clamp(16px, 1.45vw, 24px);   /* grows on a projector */
   line-height: 1.4;
 }
 
+a { color: inherit; }
+
 .screen {
+  position: relative;
   min-height: 100vh;
   scroll-snap-align: start;
+  padding: 7vh 7vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 6vh 8vw;
+  overflow: hidden;
 }
 
 h1, h2 {
   font-family: var(--display);
-  font-stretch: 85%;
-  line-height: 1.05;
-  margin: 0 0 0.5em;
-  max-width: 22ch;
+  font-stretch: 80%;
+  font-weight: 800;
+  line-height: 1;
+  margin: 0 0 0.4em;
 }
 
-h1 { font-size: 3.2em; font-weight: 800; }
-h2 { font-size: 2.2em; font-weight: 750; }
-
-.kicker {
+.tag {
   font-family: var(--mono);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
   font-size: 0.7em;
-  margin: 0 0 1.5em;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin: 0 0 1.4em;
 }
 
-/* ---------- screen 1 ---------- */
-
-.title {
-  background: var(--cobalt);
-  color: var(--plaster);
-}
-
-.big {
-  display: block;
-  font-size: 2em;
-  color: var(--saffron);
-  font-stretch: 110%;
-}
-
-.sub { font-size: 1.2em; margin: 0; }
-.by { margin-top: 3em; font-size: 0.8em; opacity: 0.8; }
-
-/* ---------- screen 2 ---------- */
-
-.timeline {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 1.5em;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);   /* four steps side by side */
-  gap: 2vw;
-}
-
-.timeline li {
-  border-top: 4px solid var(--ink);
-  padding-top: 0.6em;
-}
-
-.when {
-  display: block;
-  font-family: var(--mono);
-  font-size: 0.75em;
-  color: var(--cobalt);
-  margin-bottom: 0.3em;
-}
-
-blockquote {
-  margin: 0;
-  padding-left: 1em;
-  border-left: 6px solid var(--saffron);
-  max-width: 40ch;
-}
-
-blockquote p {
-  font-family: var(--mono);
-  font-size: 1.1em;
-  margin: 0 0 0.3em;
-}
-
-cite { color: var(--muted); font-size: 0.8em; }
-
-/* ---------- screen 3 ---------- */
-
-.question { background: var(--ink); color: var(--plaster); }
-.question .kicker { color: var(--saffron); }
-
-.options {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 3em;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1em;
-}
-
-.options li {
-  border: 2px solid var(--plaster);
-  padding: 0.3em 0.8em;
-  font-size: 1.1em;
-}
-
-.sources { font-size: 0.65em; opacity: 0.75; }
-.sources a { color: var(--plaster); }
-
-/* phones: steps stack instead of sitting in a row */
-@media (max-width: 700px) {
-  .timeline { grid-template-columns: 1fr; }
-  h1 { font-size: 2.2em; }
-  h2 { font-size: 1.6em; }
-}
-
-/* the follow-up question under the three options */
-.follow { font-size: 0.9em; max-width: 45ch; margin: -1.5em 0 2.5em; opacity: 0.85; }
-
-/* screen number in the bottom corner, and the source line on screen 2 */
-.screen { position: relative; }
 .count {
   position: absolute;
-  right: 8vw;
+  right: 7vw;
   bottom: 4vh;
   margin: 0;
   font-family: var(--mono);
   font-size: 0.65em;
-  opacity: 0.6;
+  color: var(--muted);
 }
-.source { font-size: 0.65em; color: var(--muted); margin: 1.5em 0 0; }
-.source a { color: inherit; }
+
+.source { font-size: 0.62em; color: var(--muted); margin: 1.6em 0 0; }
+
+/* ---------- 1. hook ---------- */
+
+.hook {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* words left, dots right */
+  align-items: center;
+  gap: 5vw;
+}
+
+.live {   /* the blinking red "recording" dot */
+  display: inline-block;
+  width: 0.7em;
+  height: 0.7em;
+  border-radius: 50%;
+  background: var(--alert);
+  margin-right: 0.4em;
+  vertical-align: -0.05em;
+  animation: blink 1.2s steps(2) infinite;
+}
+
+.hook h1 { font-size: 2.9em; }
+
+.big {
+  display: block;
+  font-size: 2.3em;
+  font-stretch: 115%;
+  color: var(--saffron);
+  letter-spacing: -0.02em;
+}
+
+.sub { font-size: 1.3em; margin: 0 0 2em; color: var(--alert); font-weight: 500; }
+.by { font-size: 0.7em; color: var(--muted); margin: 0; }
+
+.dots {
+  display: grid;
+  grid-template-columns: repeat(40, 1fr);   /* 40 x 30 = 1,200 */
+  gap: 3px;
+}
+
+.dots span {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #262b36;   /* dim until it lights up */
+}
+
+/* when screen 1 is on, each dot lights up after its own delay */
+.hook.in-view .dots span { animation: wake 0.4s forwards; }
+.hook.in-view .dots span.attacker { animation: wake 0.4s forwards, turn-red 0.3s forwards; }
+
+.swarm { margin: 0; }
+.swarm figcaption {
+  display: flex;
+  gap: 1.5em;
+  flex-wrap: wrap;
+  margin-top: 1em;
+  font-family: var(--mono);
+  font-size: 0.65em;
+  color: var(--muted);
+}
+
+.key { display: inline-block; width: 0.8em; height: 0.8em; border-radius: 50%; margin-right: 0.4em; vertical-align: -0.1em; }
+.key-on { background: var(--cobalt); }
+.key-red { background: var(--alert); }
+
+/* ---------- 2. route ---------- */
+
+.route { background: var(--plaster); color: var(--ink); }
+.route .tag, .route .count, .route .source { color: #6E6A61; }
+
+.path {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 6vh;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3.5vw;   /* room for the arrows */
+}
+
+.path li {
+  position: relative;
+  padding: 1em;
+  border: 2px solid var(--ink);
+  background: #fff;
+  opacity: 0;   /* each box slides in when the screen is on */
+  transform: translateY(12px);
+}
+
+/* the arrow between boxes */
+.path li:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: calc(-1.75vw - 0.5em);   /* centred in the gap */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1em;
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.path strong { display: block; font-family: var(--display); font-size: 1.5em; font-stretch: 85%; margin: 0.2em 0; }
+.path span { font-size: 0.8em; }
+.path .step { font-family: var(--mono); font-size: 0.65em; color: #6E6A61; }
+
+.path li.hit { background: var(--alert); border-color: var(--alert); color: #fff; }
+.path li.hit .step { color: #fff; }
+
+.route.in-view .path li { animation: rise 0.5s forwards; }
+.route.in-view .path li:nth-child(2) { animation-delay: 0.4s; }
+.route.in-view .path li:nth-child(3) { animation-delay: 0.8s; }
+.route.in-view .path li:nth-child(4) { animation-delay: 1.2s; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2vw;
+  margin-bottom: 4vh;
+}
+
+.stats p { margin: 0; border-top: 4px solid var(--ink); padding-top: 0.5em; font-size: 0.9em; }
+.stats b { display: block; font-family: var(--display); font-size: 2.6em; font-stretch: 90%; line-height: 1; }
+.stats p:last-child b { color: var(--alert); }
+
+.terminal {
+  background: var(--panel);
+  color: var(--plaster);
+  border-radius: 8px;
+  padding: 0.9em 1.2em 1em;
+  max-width: 46em;
+  font-family: var(--mono);
+}
+
+.term-bar { margin: 0 0 0.8em; font-size: 0.6em; color: var(--muted); }
+.term-bar i { display: inline-block; width: 0.8em; height: 0.8em; border-radius: 50%; background: #3a3f4b; margin-right: 0.35em; }
+.term-line { margin: 0; font-size: 1em; }
+.term-note { margin: 0.5em 0 0; font-size: 0.65em; color: var(--muted); }
+
+.cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1.1em;
+  background: var(--alert);
+  margin-left: 0.2em;
+  vertical-align: -0.2em;
+  animation: blink 1s steps(2) infinite;
+}
+
+/* ---------- 3. question ---------- */
+
+.question h2 { font-size: 3em; max-width: 18ch; }
+.question h2 em { font-style: normal; color: var(--alert); }
+
+.options {
+  list-style: none;
+  padding: 0;
+  margin: 0.6em 0 1.5em;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5vw;
+  max-width: 60em;
+}
+
+.options li {
+  border: 2px solid #2c313c;
+  padding: 1em;
+  font-size: 1.1em;
+  font-weight: 500;
+}
+
+.options b {
+  display: block;
+  font-family: var(--display);
+  font-size: 2em;
+  color: var(--saffron);
+  line-height: 1;
+  margin-bottom: 0.2em;
+}
+
+.follow { max-width: 50ch; font-size: 0.85em; color: #c9ccd2; margin: 0; }
+
+/* ---------- animations ---------- */
+
+@keyframes wake { to { background: var(--cobalt); } }
+@keyframes turn-red { to { background: var(--alert); } }
+@keyframes rise { to { opacity: 1; transform: none; } }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* if someone has reduced motion on: show the end state, no movement */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; }
+  .dots span { background: var(--cobalt); }
+  .dots span.attacker { background: var(--alert); }
+  .path li { opacity: 1; transform: none; }
+}
+
+/* ---------- phones: stack everything ---------- */
+
+@media (max-width: 800px) {
+  .hook { grid-template-columns: 1fr; }
+  .hook h1 { font-size: 2em; }
+  .path, .stats, .options { grid-template-columns: 1fr; }
+  .path li:not(:last-child)::after { content: "↓"; right: auto; left: 1em; top: auto; bottom: -1.3em; transform: none; }
+  .path { gap: 1.6em; }
+  .question h2 { font-size: 2em; }
+}
