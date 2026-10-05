@@ -142,3 +142,6 @@ cite { color: var(--muted); font-size: 0.8em; }
   h1 { font-size: 2.2em; }
   h2 { font-size: 1.6em; }
 }
+
+/* the follow-up question under the three options */
+.follow { font-size: 0.9em; max-width: 45ch; margin: -1.5em 0 2.5em; opacity: 0.85; }
