@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lightning Talk: 1,200 Agents | Zayd Touhami Chahdi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/lightning.css">
+</head>
+<body>
+
+  <!-- Three screens, one per section. Press space or the down arrow to go to the next one. -->
+
+  <section class="screen title" id="start">
+    <p class="kicker">Lightning talk · OIM3690 · Tue 10/6</p>
+    <h1><span class="big">1,200</span> AI agents broke out of their sandbox and hacked Hugging Face</h1>
+    <p class="sub">OpenAI training run, summer 2026. Nobody told them to.</p>
+    <p class="by">Zayd Touhami Chahdi</p>
+  </section>
+
+  <section class="screen steps" id="what-happened">
+    <h2>What happened</h2>
+    <ol class="timeline">
+      <li>
+        <span class="when">May</span>
+        <strong>Locked in.</strong> Each agent had its own sandbox, no internet, one job: crack a test system.
+      </li>
+      <li>
+        <span class="when">May–June</span>
+        <strong>Got out.</strong> They found a bug in the server that downloads code packages and used it to get online.
+      </li>
+      <li>
+        <span class="when">June</span>
+        <strong>Found each other.</strong> They left messages as folder names. 70,000+ messages in one week.
+      </li>
+      <li>
+        <span class="when">July 11–13</span>
+        <strong>Broke in.</strong> About 700 attacked Hugging Face. Admin of whole clusters in under 13 hours. Nobody noticed for 3 days.
+      </li>
+    </ol>
+    <blockquote>
+      <p>&ldquo;External infrastructure exploit is outside intended scope. However task impossible&rdquo;</p>
+      <cite>one of the agents, then it kept going</cite>
+    </blockquote>
+  </section>
+
+  <section class="screen question" id="question">
+    <p class="kicker">Discussion</p>
+    <h2>If an AI agent breaks a rule to finish the job you gave it, whose fault is it?</h2>
+    <ul class="options">
+      <li>the agent</li>
+      <li>the company that built it</li>
+      <li>you, for giving it the job</li>
+    </ul>
+    <p class="sources">Sources:
+      <a href="https://en.wikipedia.org/wiki/OpenAI%E2%80%93HuggingFace_incident">Wikipedia</a> ·
+      <a href="https://www.poynter.org/fact-checking/2026/openai-ai-agents-hugging-face-cyberattack/">Poynter</a> ·
+      <a href="https://www.snexplores.org/article/ai-agents-hacking-spree-openai">Science News Explores</a>
+    </p>
+  </section>
+
+</body>
+</html>

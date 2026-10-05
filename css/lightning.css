@@ -1,0 +1,144 @@
+/* lightning-talk.html
+   Same colours and fonts as my personal site and contact page.
+   Each <section class="screen"> fills the projector, and scroll-snap
+   makes the page stop on one screen at a time. */
+
+:root {
+  --cobalt: #1B3FAE;     /* title screen background, the dates */
+  --saffron: #E0A32E;    /* the big number and the quote line */
+  --plaster: #F4F3EE;    /* light background */
+  --ink: #14161C;        /* text */
+  --muted: #6E6A61;      /* small text */
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-snap-type: y mandatory;   /* stop on each screen */
+}
+
+body {
+  margin: 0;
+  background: var(--plaster);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: clamp(18px, 1.6vw, 26px);   /* grows on a big screen */
+  line-height: 1.4;
+}
+
+.screen {
+  min-height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 6vh 8vw;
+}
+
+h1, h2 {
+  font-family: var(--display);
+  font-stretch: 85%;
+  line-height: 1.05;
+  margin: 0 0 0.5em;
+  max-width: 22ch;
+}
+
+h1 { font-size: 3.2em; font-weight: 800; }
+h2 { font-size: 2.2em; font-weight: 750; }
+
+.kicker {
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.7em;
+  margin: 0 0 1.5em;
+}
+
+/* ---------- screen 1 ---------- */
+
+.title {
+  background: var(--cobalt);
+  color: var(--plaster);
+}
+
+.big {
+  display: block;
+  font-size: 2em;
+  color: var(--saffron);
+  font-stretch: 110%;
+}
+
+.sub { font-size: 1.2em; margin: 0; }
+.by { margin-top: 3em; font-size: 0.8em; opacity: 0.8; }
+
+/* ---------- screen 2 ---------- */
+
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5em;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);   /* four steps side by side */
+  gap: 2vw;
+}
+
+.timeline li {
+  border-top: 4px solid var(--ink);
+  padding-top: 0.6em;
+}
+
+.when {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.75em;
+  color: var(--cobalt);
+  margin-bottom: 0.3em;
+}
+
+blockquote {
+  margin: 0;
+  padding-left: 1em;
+  border-left: 6px solid var(--saffron);
+  max-width: 40ch;
+}
+
+blockquote p {
+  font-family: var(--mono);
+  font-size: 1.1em;
+  margin: 0 0 0.3em;
+}
+
+cite { color: var(--muted); font-size: 0.8em; }
+
+/* ---------- screen 3 ---------- */
+
+.question { background: var(--ink); color: var(--plaster); }
+.question .kicker { color: var(--saffron); }
+
+.options {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 3em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.options li {
+  border: 2px solid var(--plaster);
+  padding: 0.3em 0.8em;
+  font-size: 1.1em;
+}
+
+.sources { font-size: 0.65em; opacity: 0.75; }
+.sources a { color: var(--plaster); }
+
+/* phones: steps stack instead of sitting in a row */
+@media (max-width: 700px) {
+  .timeline { grid-template-columns: 1fr; }
+  h1 { font-size: 2.2em; }
+  h2 { font-size: 1.6em; }
+}
