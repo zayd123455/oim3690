@@ -2,8 +2,10 @@ const form = document.getElementById('todo-form');
 const input = document.getElementById('todo-input');
 const list = document.getElementById('todo-list');
 const count = document.getElementById('todo-count');
+const filters = document.getElementById('filters');
 
 let todos = JSON.parse(localStorage.getItem('todos')) || [];
+let filter = 'all';
 
 function saveTodos() {
   localStorage.setItem('todos', JSON.stringify(todos));
@@ -12,7 +14,13 @@ function saveTodos() {
 function renderTodos() {
   list.innerHTML = '';
 
-  todos.forEach((todo) => {
+  const shown = todos.filter((t) => {
+    if (filter === 'open') return !t.done;
+    if (filter === 'done') return t.done;
+    return true;
+  });
+
+  shown.forEach((todo) => {
     const li = document.createElement('li');
     if (todo.done) {
       li.classList.add('done');
@@ -56,6 +64,16 @@ form.addEventListener('submit', (e) => {
   todos.push({ id: Date.now(), text: text, done: false });
   input.value = '';
   saveTodos();
+  renderTodos();
+});
+
+filters.addEventListener('click', (e) => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  filter = btn.dataset.filter;
+  filters.querySelectorAll('button').forEach((b) => {
+    b.classList.toggle('active', b === btn);
+  });
   renderTodos();
 });
 

@@ -51,6 +51,28 @@ h1 {
   background: #22603b;
 }
 
+.filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.filters button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  color: #222;
+  cursor: pointer;
+}
+
+.filters button.active {
+  border-color: #2b7a4b;
+  background: #2b7a4b;
+  color: #fff;
+}
+
 #todo-list {
   list-style: none;
   padding: 0;
