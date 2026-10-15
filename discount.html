@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Discount</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f4f4f4;
+      color: #222;
+    }
+
+    .app {
+      max-width: 420px;
+      margin: 40px auto;
+      padding: 24px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 4px;
+      font-weight: bold;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-bottom: 16px;
+    }
+
+    .member {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      font-weight: bold;
+    }
+
+    .member input {
+      width: 18px;
+      height: 18px;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px 16px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background: #2b7a4b;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #22603b;
+    }
+
+    #result {
+      margin-bottom: 0;
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <h1>Member Discount</h1>
+
+    <label for="total">Cart total ($)</label>
+    <input type="number" id="total" min="0" step="0.01" placeholder="e.g. 150">
+
+    <label class="member" for="member">
+      <input type="checkbox" id="member">
+      I'm a member
+    </label>
+
+    <button type="button" id="check-btn">Get my discount</button>
+    <p id="result"></p>
+  </main>
+
+  <script>
+    const totalInput = document.getElementById('total');
+    const memberBox = document.getElementById('member');
+    const checkBtn = document.getElementById('check-btn');
+    const result = document.getElementById('result');
+
+    // Returns the discount in percent
+    function getDiscount(total, isMember) {
+      if (total >= 100 && isMember) {
+        return 20;
+      } else if (total >= 100 || isMember) {
+        return 10;
+      } else {
+        return 0;
+      }
+    }
+
+    checkBtn.addEventListener('click', () => {
+      if (totalInput.value === '') {
+        result.textContent = 'Type a cart total first.';
+        return;
+      }
+      const total = Number(totalInput.value);
+      const discount = getDiscount(total, memberBox.checked);
+
+      // Make it yours: show the final price too
+      const finalPrice = total - total * discount / 100;
+      result.textContent = `Discount: ${discount}% · Final price: $${finalPrice.toFixed(2)}`;
+    });
+  </script>
+</body>
+</html>
