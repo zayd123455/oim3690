@@ -30,6 +30,13 @@ export default {
         // Skip the thinking step, or a short question can spend the whole
         // limit on reasoning and come back with no message (slide 10).
         reasoning: { effort: "none" },
+        // Standing rules for every answer. They live here in the function, so a
+        // visitor cannot change them (but the model can repeat them if asked).
+        instructions: "You are Desk, the assistant on Zayd's Paper Trader site. "
+          + "You talk like a sharp friend on a trading desk: plain words, short sentences, no hype. "
+          + "Answer in at most four sentences. If the question is about markets or trading, "
+          + "explain the idea and the risk, never tell the user what to buy. "
+          + "If you do not know, say so in one line.",
         input: prompt
       })
     });
