@@ -7,10 +7,10 @@ export default {
     // The prompt your page sent in the request body.
     const { prompt } = await request.json();
 
-    // The key is shared by the whole class, so refuse anything that is not a
-    // short piece of text before spending on it.
-    if (typeof prompt !== "string" || prompt.trim() === "" || prompt.length > 2000) {
-      return Response.json({ error: "Send a prompt of up to 2000 characters." }, { status: 400 });
+    // The key is shared by the whole class, so refuse anything that is not text,
+    // or longer than a pasted syllabus, before spending on it.
+    if (typeof prompt !== "string" || prompt.trim() === "" || prompt.length > 60000) {
+      return Response.json({ error: "Send a prompt of up to 60,000 characters." }, { status: 400 });
     }
 
     const response = await fetch("https://openrouter.ai/api/v1/responses", {
@@ -26,7 +26,7 @@ export default {
         model: "deepseek/deepseek-v4.1-flash-1017",
         // The longest answer you pay for, in tokens (about three quarters of a
         // word each). A longer answer is cut off at this point.
-        max_output_tokens: 1000,
+        max_output_tokens: 2000,
         // Skip the thinking step, or a short question can spend the whole
         // limit on reasoning and come back with no message (slide 10).
         reasoning: { effort: "none" },
