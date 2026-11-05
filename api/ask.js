@@ -8,17 +8,21 @@ export default {
     // { role, content }. The model keeps nothing between calls, so every call
     // has to carry the earlier turns again. An old page may still send prompt.
     const body = await request.json();
-    const messages = Array.isArray(body.messages)
+    const raw = Array.isArray(body.messages)
       ? body.messages
       : (typeof body.prompt === "string" ? [{ role: "user", content: body.prompt }] : []);
 
     // The key is shared by the whole class, so refuse anything that is not text,
-    // or longer than a pasted syllabus, before spending on it.
-    const ok = messages.length > 0 && messages.every(m =>
-      (m.role === "user" || m.role === "assistant") && typeof m.content === "string");
+    // too many turns, or longer than a pasted syllabus, before spending on it.
+    // Only role and content go on to the model, nothing else the page sent.
+    const ok = raw.length > 0 && raw.length <= 50 && raw.every(m =>
+      m && typeof m === "object" &&
+      (m.role === "user" || m.role === "assistant") &&
+      typeof m.content === "string" && m.content.trim() !== "");
+    const messages = ok ? raw.map(m => ({ role: m.role, content: m.content })) : [];
     const total = messages.reduce((n, m) => n + m.content.length, 0);
-    if (!ok || total === 0 || total > 60000) {
-      return Response.json({ error: "Send messages with up to 60,000 characters in all." }, { status: 400 });
+    if (!ok || total > 60000) {
+      return Response.json({ error: "Send 1 to 50 messages with up to 60,000 characters in all." }, { status: 400 });
     }
 
     const response = await fetch("https://openrouter.ai/api/v1/responses", {
