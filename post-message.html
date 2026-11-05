@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Message Board</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 600px; margin: 2rem auto; padding: 0 1rem; }
+    form { display: flex; gap: 0.5rem; }
+    input { flex: 1; padding: 0.5rem; font-size: 1rem; }
+    button { padding: 0.5rem 1rem; font-size: 1rem; }
+    #status { color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Message Board</h1>
+  <p>Posts a message to the class board at oim.zhili.dev. The token is my GitHub username.</p>
+
+  <form id="form">
+    <input id="message" type="text" placeholder="Type a message" required>
+    <button type="submit">Post</button>
+  </form>
+  <p id="status"></p>
+
+  <script>
+    // From the 10/29 Your Turn slide: POST a message with my username as the token.
+    async function postMessage(text) {
+      const response = await fetch("https://oim.zhili.dev/message", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Token": "zayd123455"
+        },
+        body: JSON.stringify({ message: text })
+      });
+      if (!response.ok) {
+        throw new Error("Request failed: " + response.status);
+      }
+      const data = await response.json();
+      console.log(data);
+      return data;
+    }
+
+    // The text box and button: post whatever I typed, show what happened.
+    const form = document.querySelector("#form");
+    const input = document.querySelector("#message");
+    const status = document.querySelector("#status");
+
+    form.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      const text = input.value.trim();
+      if (!text) return;
+      status.textContent = "Posting...";
+      try {
+        await postMessage(text);
+        status.textContent = "Posted: " + text;
+        input.value = "";
+      } catch (error) {
+        status.textContent = "Error: " + error.message;
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fetch Something Fun</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 600px; margin: 2rem auto; padding: 0 1rem; }
+    button { padding: 0.5rem 1rem; font-size: 1rem; margin-right: 0.5rem; }
+    #result { margin-top: 1rem; min-height: 2rem; }
+    #result img { max-width: 100%; border-radius: 8px; }
+    #result p { font-size: 1.2rem; }
+  </style>
+</head>
+<body>
+  <h1>Fetch Something Fun</h1>
+  <p>Dog gets a random dog photo. Surprise me picks between a dog photo and a piece of advice.</p>
+
+  <button id="dogBtn">Dog</button>
+  <button id="surpriseBtn">Surprise me</button>
+  <div id="result"></div>
+
+  <script>
+    const result = document.querySelector("#result");
+
+    // Random dog photo. The URL of the picture is in .message.
+    async function fetchDog() {
+      const response = await fetch("https://dog.ceo/api/breeds/image/random");
+      if (!response.ok) {
+        throw new Error("Request failed: " + response.status);
+      }
+      const data = await response.json();
+      const img = document.createElement("img");
+      img.src = data.message;
+      img.alt = "A random dog";
+      result.replaceChildren(img);
+    }
+
+    // Random advice. The text is in .slip.advice.
+    async function fetchAdvice() {
+      const response = await fetch("https://api.adviceslip.com/advice");
+      if (!response.ok) {
+        throw new Error("Request failed: " + response.status);
+      }
+      const data = await response.json();
+      const p = document.createElement("p");
+      p.textContent = data.slip.advice;
+      result.replaceChildren(p);
+    }
+
+    // One place that shows Loading, runs the fetch, and shows any error.
+    async function run(fetcher) {
+      result.textContent = "Loading...";
+      try {
+        await fetcher();
+      } catch (error) {
+        result.textContent = "Error: " + error.message;
+      }
+    }
+
+    document.querySelector("#dogBtn").addEventListener("click", function () {
+      run(fetchDog);
+    });
+
+    document.querySelector("#surpriseBtn").addEventListener("click", function () {
+      const pick = Math.random() < 0.5 ? fetchDog : fetchAdvice;
+      run(pick);
+    });
+  </script>
+</body>
+</html>
