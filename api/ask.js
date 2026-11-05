@@ -4,13 +4,21 @@
 
 export default {
   async fetch(request) {
-    // The prompt your page sent in the request body.
-    const { prompt } = await request.json();
+    // The page sends the whole conversation so far as messages, a list of
+    // { role, content }. The model keeps nothing between calls, so every call
+    // has to carry the earlier turns again. An old page may still send prompt.
+    const body = await request.json();
+    const messages = Array.isArray(body.messages)
+      ? body.messages
+      : (typeof body.prompt === "string" ? [{ role: "user", content: body.prompt }] : []);
 
     // The key is shared by the whole class, so refuse anything that is not text,
     // or longer than a pasted syllabus, before spending on it.
-    if (typeof prompt !== "string" || prompt.trim() === "" || prompt.length > 60000) {
-      return Response.json({ error: "Send a prompt of up to 60,000 characters." }, { status: 400 });
+    const ok = messages.length > 0 && messages.every(m =>
+      (m.role === "user" || m.role === "assistant") && typeof m.content === "string");
+    const total = messages.reduce((n, m) => n + m.content.length, 0);
+    if (!ok || total === 0 || total > 60000) {
+      return Response.json({ error: "Send messages with up to 60,000 characters in all." }, { status: 400 });
     }
 
     const response = await fetch("https://openrouter.ai/api/v1/responses", {
@@ -37,7 +45,8 @@ export default {
           + "Answer in at most four sentences. If the question is about markets or trading, "
           + "explain the idea and the risk, never tell the user what to buy. "
           + "If you do not know, say so in one line.",
-        input: prompt
+        // The whole conversation, oldest first.
+        input: messages
       })
     });
 

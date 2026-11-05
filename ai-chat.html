@@ -4,24 +4,60 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ask AI</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 2rem auto; padding: 0 1rem; }
+    #chat { display: flex; flex-direction: column; gap: 0.5rem; min-height: 8rem; margin-bottom: 1rem; }
+    .msg { padding: 0.6rem 0.8rem; border-radius: 12px; max-width: 85%; white-space: pre-wrap; }
+    .user { background: #d9e8ff; align-self: flex-end; }
+    .assistant { background: #f0f0f0; align-self: flex-start; }
+    .error { background: #ffe0e0; align-self: flex-start; }
+    form { display: flex; gap: 0.5rem; }
+    textarea { flex: 1; padding: 0.5rem; font-size: 1rem; min-height: 3rem; }
+    button { padding: 0.5rem 1rem; font-size: 1rem; }
+  </style>
 </head>
 <body>
   <h1>Ask AI</h1>
-  <textarea id="prompt" placeholder="Ask AI anything..."></textarea>
-  <button id="askBtn">Ask</button>
-  <p id="answer"></p>
+  <p>A chat with Desk. Every question and answer stays on screen, newest at the bottom.</p>
+
+  <div id="chat"></div>
+
+  <form id="form">
+    <textarea id="prompt" placeholder="Ask AI anything..." required></textarea>
+    <button id="askBtn" type="submit">Ask</button>
+  </form>
 
   <script>
     // This page works only on your vercel.app link. Live Server and GitHub Pages
     // cannot run the function in api/ask.js, so there the Ask button fails.
 
-    // Sends your prompt to your own function at /api/ask. The function adds the
-    // key and calls the model, so no key appears anywhere on this page.
-    async function askAI(prompt) {
+    // Every message so far, in order. The model has no memory between calls,
+    // so the whole list goes to the function every time. That is how it can
+    // answer "what is my name" after you told it.
+    const messages = [];
+
+    const chat = document.querySelector('#chat');
+    const form = document.querySelector('#form');
+    const promptEl = document.querySelector('#prompt');
+    const askBtn = document.querySelector('#askBtn');
+
+    // Adds one bubble to the chat. textContent, never innerHTML, so the model
+    // cannot put HTML on the page.
+    function addBubble(role, text) {
+      const div = document.createElement('div');
+      div.className = 'msg ' + role;
+      div.textContent = text;
+      chat.appendChild(div);
+      div.scrollIntoView({ block: 'end' });
+      return div;
+    }
+
+    // Sends the whole conversation to the function and returns the model's answer.
+    async function askAI(history) {
       const response = await fetch('/api/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ prompt })
+        body: JSON.stringify({ messages: history })
       });
       if (!response.ok) {
         throw new Error(`Request failed: ${response.status}`);
@@ -33,24 +69,33 @@
       return message.content[0].text;
     }
 
-    const askBtn = document.querySelector('#askBtn');
-    askBtn.addEventListener('click', async () => {
-      const prompt = document.querySelector('#prompt').value;
-      const answerEl = document.querySelector('#answer');
-      // Turn the button off until the answer arrives, so a second click
-      // cannot send, and pay for, a second request.
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const text = promptEl.value.trim();
+      if (!text) return;
+
+      // Show my message and add it to the history.
+      addBubble('user', text);
+      messages.push({ role: 'user', content: text });
+      promptEl.value = '';
+
+      // Button off until the answer arrives, so a second click cannot pay for
+      // a second request.
       askBtn.disabled = true;
-      // A call takes a few seconds, so show something while you wait.
-      answerEl.textContent = 'Thinking...';
+      const thinking = addBubble('assistant', 'Thinking...');
       try {
-        // textContent shows the answer as plain text. innerHTML would run any
-        // HTML the model wrote.
-        answerEl.textContent = await askAI(prompt);
+        const answer = await askAI(messages);
+        thinking.textContent = answer;
+        // Keep the answer too, so the next question has the full conversation.
+        messages.push({ role: 'assistant', content: answer });
       } catch (error) {
-        answerEl.textContent = 'Error: ' + error.message;
+        thinking.className = 'msg error';
+        thinking.textContent = 'Error: ' + error.message;
+        // Drop the question that failed, so it is not sent again next time.
+        messages.pop();
       } finally {
-        // finally runs whether the call worked or failed.
         askBtn.disabled = false;
+        promptEl.focus();
       }
     });
   </script>
