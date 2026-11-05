@@ -7,6 +7,12 @@ export default {
     // The prompt your page sent in the request body.
     const { prompt } = await request.json();
 
+    // The key is shared by the whole class, so refuse anything that is not a
+    // short piece of text before spending on it.
+    if (typeof prompt !== "string" || prompt.trim() === "" || prompt.length > 2000) {
+      return Response.json({ error: "Send a prompt of up to 2000 characters." }, { status: 400 });
+    }
+
     const response = await fetch("https://openrouter.ai/api/v1/responses", {
       method: "POST",
       headers: {
