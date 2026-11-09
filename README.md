@@ -6,3 +6,5 @@ Mini Project 1: [PrintYourDay for wedding planners](https://github.com/zayd12345
 Mini Project 2: [Trade Check](https://github.com/zayd123455/trade-check), live at https://zayd123455.github.io/trade-check/
 
 Mini Project 3: [Paper Trader](https://github.com/ztc00/paper-trader), live at https://paper-trader-virid.vercel.app/
+
+Ask AI (Checkpoint 5): https://oim3690-six.vercel.app/ai-chat.html
